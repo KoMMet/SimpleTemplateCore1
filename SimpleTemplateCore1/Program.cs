@@ -9,9 +9,11 @@ namespace SimpleTemplateCore1
         static void Main(string[] args)
         {
             CancellationTokenSource cts = new CancellationTokenSource();
-            var t1 = Task.Run(() => { WaitKey(cts); });
+            //program end 
+            var t1 = Task.Run(() => { if (Console.ReadKey(true).KeyChar == 'q') cts.Cancel(); });
             var t2 = Task.Run(() => { MainPric(cts.Token); });
             Task.WaitAll(t1, t2);
+            cts.Dispose();
         }
 
         private static void MainPric(CancellationToken ctsToken)
@@ -23,18 +25,6 @@ namespace SimpleTemplateCore1
 
                 if (ctsToken.IsCancellationRequested)
                 {
-                    break;
-                }
-            }
-        }
-
-        private static void WaitKey(CancellationTokenSource cts)
-        {
-            while (true)
-            {
-                if (Console.ReadKey(true).KeyChar == 'q')
-                {
-                    cts.Cancel();
                     break;
                 }
             }
