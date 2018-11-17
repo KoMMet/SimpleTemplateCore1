@@ -11,12 +11,12 @@ namespace SimpleTemplateCore1
             CancellationTokenSource cts = new CancellationTokenSource();
             //program end 
             var t1 = Task.Run(() => { if (Console.ReadKey(true).KeyChar == 'q') cts.Cancel(); });
-            var t2 = Task.Run(() => { MainPric(cts.Token); });
+            var t2 = Task.Run(() => { MainProc(cts.Token); });
             Task.WaitAll(t1, t2);
             cts.Dispose();
         }
 
-        private static void MainPric(CancellationToken ctsToken)
+        private static void MainProc(CancellationToken ctsToken)
         {
             while (true)
             {
